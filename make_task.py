@@ -17,8 +17,10 @@ if __name__ == '__main__':
         partdir.mkdir(exist_ok=True, parents=True)
         for f in files:
             filepath = partdir / f
-            filepath.touch()
             if f == 'main.py':
-                filepath.open('w').writelines(['import sys\n',
-                                               'from pathlib import Path\n\n',
-                                               'input_file = Path(sys.argv[1])'])
+                if not filepath.exists():
+                    filepath.open('w').writelines(['import sys\n',
+                                                   'from pathlib import Path\n\n',
+                                                   'input_file = Path(sys.argv[1])'])
+                else:
+                    raise ValueError(f'main.py already exists for AOC {args.year}-{args.task}')
