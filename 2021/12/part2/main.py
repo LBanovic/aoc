@@ -1,0 +1,42 @@
+import collections
+import sys
+from collections import deque
+from pathlib import Path
+from pprint import pprint
+from typing import List, Set, Counter
+
+input_file = Path(sys.argv[1])
+
+connections = {}
+for line in input_file.open():
+    start, end = line.strip().split('-')
+    connections.setdefault(start, []).append(end)
+    connections.setdefault(end, []).append(start)
+
+start_cave = 'start'
+end_cave = 'end'
+
+
+def get_connections(cave: str, visited_small_cave: Counter[str]) -> List[str]:
+    most_common = visited_small_cave.most_common(1)
+    visited_twice = most_common and most_common[0][1] == 2
+    return [next_cave for next_cave in connections[cave] if
+            not (visited_small_cave[next_cave] > 0 and visited_twice) and next_cave != start_cave]
+
+
+queue = deque([((start_cave,), collections.Counter())])
+paths = set()
+while queue:
+    caves, small_caves_visited = queue.popleft()
+    if caves[0] == start_cave and caves[-1] == end_cave:
+        paths.add(caves)
+        continue
+
+    if caves[-1].islower():
+        small_caves_visited[caves[-1]] += 1
+
+    for cave in get_connections(caves[-1], small_caves_visited):
+        next_caves = (*caves, cave)
+        queue.append((next_caves, small_caves_visited.copy()))
+
+print(len(paths))

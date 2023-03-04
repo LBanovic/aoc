@@ -45,8 +45,8 @@ def cube_bounding_box(cubes: Set[Cube]):
 def find_overlaps(cubes1, cubes2):
     for cube1 in cubes1:
         for cube2 in cubes2:
-            xdiff = cube1.x - cube2.x
-            ydiff = cube1.y - cube2.y
+            xdiff = cube1.left - cube2.left
+            ydiff = cube1.right - cube2.right
             zdiff = cube1.z - cube2.z
 
             if sum(abs(diff) for diff in (xdiff, ydiff, zdiff)) == 1:

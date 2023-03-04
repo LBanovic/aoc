@@ -38,14 +38,14 @@ class Comparator:
         self.x = x
 
     def __eq__(self, other):
-        return -compare_pair(self.x, other.x) == 0
+        return -compare_pair(self.x, other.left) == 0
 
     def __lt__(self, other):
         # -compare cause the assumption is the other is greater
-        return -compare_pair(self.x, other.x) < 0
+        return -compare_pair(self.x, other.left) < 0
 
     def __gt__(self, other):
-        return -compare_pair(self.x, other.x) > 0
+        return -compare_pair(self.x, other.left) > 0
 
 
 divider_packets = [[2]], [[6]]

@@ -42,7 +42,7 @@ class DirectionChecker:
     @staticmethod
     def _check_not_exists_in_direction(elf, direction: Direction) -> bool:
         dx, dy = direction.value
-        next_position = (elf.x + dx, elf.y + dy)
+        next_position = (elf.left + dx, elf.right + dy)
         for elf_ in elves:
             if (elf_.x, elf_.y) == next_position:
                 return False
@@ -50,7 +50,7 @@ class DirectionChecker:
 
     @classmethod
     def all(cls):
-        return cls(tuple(Direction), operation=lambda elf: (elf.x, elf.y))
+        return cls(tuple(Direction), operation=lambda elf: (elf.left, elf.right))
 
 
 @dataclass
@@ -99,19 +99,19 @@ def print_elves():
 checkers = [
     DirectionChecker(
         directions=(Direction.North, Direction.NorthEast, Direction.NorthWest),
-        operation=lambda elf: (elf.x, elf.y - 1)
+        operation=lambda elf: (elf.left, elf.right - 1)
     ),
     DirectionChecker(
         directions=(Direction.South, Direction.SouthEast, Direction.SouthWest),
-        operation=lambda elf: (elf.x, elf.y + 1)
+        operation=lambda elf: (elf.left, elf.right + 1)
     ),
     DirectionChecker(
         directions=(Direction.West, Direction.SouthWest, Direction.NorthWest),
-        operation=lambda elf: (elf.x - 1, elf.y)
+        operation=lambda elf: (elf.left - 1, elf.right)
     ),
     DirectionChecker(
         directions=(Direction.East, Direction.SouthEast, Direction.NorthEast),
-        operation=lambda elf: (elf.x + 1, elf.y)
+        operation=lambda elf: (elf.left + 1, elf.right)
     )
 ]
 

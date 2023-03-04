@@ -45,7 +45,7 @@ class DirectionChecker:
 
     @classmethod
     def all(cls):
-        return cls(tuple(Direction), operation=lambda elf: (elf.x, elf.y))
+        return cls(tuple(Direction), operation=lambda elf: (elf.left, elf.right))
 
 
 @dataclass
@@ -84,19 +84,19 @@ for y, line in enumerate(input_file.open()):
 checkers = [
     DirectionChecker(
         directions=(Direction.North, Direction.NorthEast, Direction.NorthWest),
-        operation=lambda elf: (elf.x, elf.y - 1)
+        operation=lambda elf: (elf.left, elf.right - 1)
     ),
     DirectionChecker(
         directions=(Direction.South, Direction.SouthEast, Direction.SouthWest),
-        operation=lambda elf: (elf.x, elf.y + 1)
+        operation=lambda elf: (elf.left, elf.right + 1)
     ),
     DirectionChecker(
         directions=(Direction.West, Direction.SouthWest, Direction.NorthWest),
-        operation=lambda elf: (elf.x - 1, elf.y)
+        operation=lambda elf: (elf.left - 1, elf.right)
     ),
     DirectionChecker(
         directions=(Direction.East, Direction.SouthEast, Direction.NorthEast),
-        operation=lambda elf: (elf.x + 1, elf.y)
+        operation=lambda elf: (elf.left + 1, elf.right)
     )
 ]
 
