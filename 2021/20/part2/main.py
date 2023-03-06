@@ -42,6 +42,16 @@ for _ in tqdm(range(STEPS)):
             new_image[x, y] = characters[index]
     image = new_image
 
+    '''
+    Everything is easy except you have to figure out the oscillation.
+    
+    If characters[0] == 1, that means that after one step all unseen pixels are turned on after one step.
+    Because the picture is infinite, it means that there will be infinitely many pixels lit after one step.
+    
+    Since we know that for this input file, the result must be finite (due to it being AOC :)), we can assume that
+    the next step will turn the unseen pixels off. This means unseen pixels will oscillate and is the reason behind
+    this if-statement.
+    '''
     if characters[0] == 1:
         default_value = 1 - default_value
 
